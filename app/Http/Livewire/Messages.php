@@ -2,12 +2,22 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
+
+
 
 class Messages extends Component
 {
     public function render()
     {
-        return view('livewire.messages');
+        $users = User::all();
+        return view('livewire.messages', compact('users'));
+    }
+
+    public function getUser($user)
+    {
+        //
+        dd($user);
     }
 }
