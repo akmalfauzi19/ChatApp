@@ -29,14 +29,14 @@ class MessageController extends Controller
                     ->Where('messages.receiver_id', $user_id);
             })->get();
             if ($data) {
-                return ResponseFormatter::success($data, 'message data retrieved successfully');
+                return ResponseFormatter::success($data, 'successfully get message data');
             } else {
                 return ResponseFormatter::error(null, 'Message data not found', 404);
             }
         } else {
             $data = $model->with('messages')->get();
             if ($data) {
-                return ResponseFormatter::success($data, 'message data retrieved successfully');
+                return ResponseFormatter::success($data, 'successfully get message data');
             } else {
                 return ResponseFormatter::error(null, 'Message data not found', 404);
             }
