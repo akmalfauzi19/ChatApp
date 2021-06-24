@@ -21,6 +21,7 @@
                                                 ->get() ?? null;
                                         $last_message = $model
                                             ->where('user_id', $user->id)
+                                            ->where('receiver_id', Auth::user()->id)
                                             ->orderBy('created_at', 'desc')
                                             ->first();
                                         // dd($last_message->message);
@@ -39,9 +40,9 @@
                                                 </div>
                                             @endif
                                             <br>
-                                            {{-- @if (filled($last_message)) --}}
-                                            <small class="last-message">{{ $last_message->message }}</small>
-                                            {{-- @endif --}}
+                                            @if (filled($last_message))
+                                                <small class="last-message">{{ $last_message->message }}</small>
+                                            @endif
                                         </li>
                                     </a>
                                 @endif
