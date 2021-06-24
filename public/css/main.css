@@ -1,10 +1,14 @@
 .avatar {
     height: 50px;
     width: 50px;
+    float: left;
 }
 .list-group-item:hover, .list-group-item:focus {
     background: rgba(24,32,23,0.37);
     cursor: pointer;
+}
+.list-group-item .last-message {
+      padding: 15px;
 }
 .chatbox {
     height: 80vh !important;
@@ -38,4 +42,9 @@
 }
 .online-icon {
     font-size: 11px !important;
+}
+
+.active, .btn:hover {
+  background-color: #666;
+  color: white;
 }
