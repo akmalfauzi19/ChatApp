@@ -12,16 +12,35 @@ class Messages extends Component
     public $sender;
     public $message;
     public $allMessage;
+    public $search = '';
 
     public function render()
     {
         $model = new User();
-        $users = $model->all();
-        $sender = $this->sender;
+        if ($this->search != '') {
+            $users = $model->where('name', 'like', "%" . $this->search  . "%")->get();
+            $sender = $this->sender;
+        } else {
+            $users = $model->all();
+            $sender = $this->sender;
+        }
         // $this->allMessage = Message::all();
         // $this->allMessage;
-
         return view('livewire.messages', compact('users', 'sender'));
+    }
+
+    public function getUser($user_id)
+    {
+        $model = new User();
+        $user = $model->findOrfail($user_id);
+        $this->sender = $user;
+        // $this->allMessage = Message::all();
+        $this->allMessage = Message::where('user_id', Auth::user()->id)
+            ->where('receiver_id', $user_id)
+            ->orWhere('user_id', $user_id)
+            ->where('receiver_id', Auth::user()->id)
+            ->orderBy('id', 'desc')->get();
+        // dd($this->sender);
     }
 
     public function resetForm()
@@ -49,22 +68,6 @@ class Messages extends Component
 
             $not_seen->update(['is_seen' => true]);
         }
-    }
-
-    public function getUser($user_id)
-    {
-        $model = new User();
-        $user = $model->findOrfail($user_id);
-        $this->sender = $user;
-        // $this->allMessage = Message::all();
-        $this->allMessage = Message::where('user_id', Auth::user()->id)
-            ->where('receiver_id', $user_id)
-            ->orWhere('user_id', $user_id)
-            ->where('receiver_id', Auth::user()->id)
-            ->orderBy('id', 'desc')->get();
-
-
-        // dd($this->sender);
     }
 
     public function SendMessage()
