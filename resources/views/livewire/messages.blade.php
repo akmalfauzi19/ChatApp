@@ -46,9 +46,10 @@
                                                     </div>
                                                 @endif
                                                 <br>
-
                                                 @if (filled($last_message))
                                                     <small class="last-message">{{ $last_message->message }}</small>
+                                                @else
+                                                    <br>
                                                 @endif
                                             </li>
                                         </a>
