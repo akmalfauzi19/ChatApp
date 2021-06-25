@@ -32,15 +32,10 @@ class Messages extends Component
     public function getUser($user_id)
     {
         $model = new User();
-        $user = $model->findOrfail($user_id);
+        $user = $model->find($user_id);
         $this->sender = $user;
-        // $this->allMessage = Message::all();
-        $this->allMessage = Message::where('user_id', Auth::user()->id)
-            ->where('receiver_id', $user_id)
-            ->orWhere('user_id', $user_id)
-            ->where('receiver_id', Auth::user()->id)
-            ->orderBy('id', 'desc')->get();
-        // dd($this->sender);
+
+        $this->mountData();
     }
 
     public function resetForm()
