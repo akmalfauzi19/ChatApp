@@ -17,6 +17,7 @@ class MessageController extends Controller
 
         $user_id = $request->input('id');
         $receiver_id = $request->input('receiver_id');
+        $name = $request->input('search_name');
 
         //get Message use filter id
 
@@ -39,6 +40,16 @@ class MessageController extends Controller
                 return ResponseFormatter::success($data, 'successfully get message data');
             } else {
                 return ResponseFormatter::error(null, 'Message data not found', 404);
+            }
+        }
+
+        //filter user base on name
+        if ($name) {
+            $data = $model->where('name', 'like', "%" . $name  . "%")->get();
+            if ($data) {
+                return ResponseFormatter::success($data, 'successfully filter user based on name');
+            } else {
+                return ResponseFormatter::error(null, 'user data not found', 404);
             }
         }
     }
