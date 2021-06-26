@@ -7,7 +7,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        Users
+                        {{ Auth::user()->name }}
                     </div>
                     <form method="get">
                         <input class="border-solid border border-gray-300 p-2 w-full col-md-12" type="text"
@@ -19,7 +19,6 @@
                                 @foreach ($users as $user)
                                     @if ($user->id != Auth::user()->id)
                                         @php
-                                            
                                             $not_seen =
                                                 $model
                                                     ->where('user_id', $user->id)
