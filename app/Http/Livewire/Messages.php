@@ -19,14 +19,12 @@ class Messages extends Component
         $model = new User();
         if ($this->search != '') {
             $users = $model->where('name', 'like', "%" . $this->search  . "%")->get();
-            $sender = $this->sender;
         } else {
             $users = $model->all();
-            $sender = $this->sender;
         }
         // $this->allMessage = Message::all();
         // $this->allMessage;
-        return view('livewire.messages', compact('users', 'sender'));
+        return view('livewire.messages', compact('users'));
     }
 
     public function getUser($user_id)
