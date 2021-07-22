@@ -28,6 +28,8 @@
                                             $last_message = $model
                                                 ->where('user_id', $user->id)
                                                 ->where('receiver_id', Auth::user()->id)
+                                                ->orWhere('user_id', Auth::user()->id)
+                                                ->orWhere('receiver_id', $user->id)
                                                 ->orderBy('created_at', 'desc')
                                                 ->first();
                                         @endphp
@@ -64,7 +66,7 @@
                         @else
                             <div class="card-body chatbox p-0">
                                 <ul class="list-group list-group-flush">
-                                    @foreach ($users as $user)
+                                    @foreach ($users as $user)`
                                         @if ($user->id != Auth::user()->id)
                                             @php
                                                 $not_seen =
